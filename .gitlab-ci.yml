@@ -15,15 +15,15 @@ before_script:
   - cp -r ${CI_PROJECT_DIR}/* ${GOPATH}/src/${GO_PROJECT}/
   - cd ${GOPATH}/src/${GO_PROJECT}
 
-build:
-  stage: build
-  before_script:
-  script:
-    - dep ensure
-    - go build -o ${CI_PROJECT_DIR}/${ARTIFACTS_DIR}/${BIN_NAME}
-  artifacts:
-      paths:
-        - ${ARTIFACTS_DIR}
+#build:
+#  stage: build
+#  before_script:
+#  script:
+#    - dep ensure
+#    - go build -o ${CI_PROJECT_DIR}/${ARTIFACTS_DIR}/${BIN_NAME}
+#  artifacts:
+#      paths:
+#        - ${ARTIFACTS_DIR}
 
 Lint:
   stage: test
