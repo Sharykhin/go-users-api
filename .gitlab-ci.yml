@@ -1,0 +1,44 @@
+image: golang:1.9.2
+
+variables:
+  BIN_NAME: go-users-api
+  ARTIFACTS_DIR: artifacts
+  GO_PROJECT: gitlab.com/Sharykhin/go-users-api
+
+stages:
+  - test
+
+before_script:
+  - mkdir -p ${GOPATH}/src/${GO_PROJECT}
+  - mkdir -p ${CI_PROJECT_DIR}/${ARTIFACTS_DIR}
+  - go get -u github.com/golang/dep/cmd/dep
+  - cp -r ${CI_PROJECT_DIR}/* ${GOPATH}/src/${GO_PROJECT}/
+  - cd ${GOPATH}/src/${GO_PROJECT}
+
+build:
+  stage: build
+  before_script:
+  script:
+    - dep ensure
+    - go build -o ${CI_PROJECT_DIR}/${ARTIFACTS_DIR}/${BIN_NAME}
+  artifacts:
+      paths:
+        - ${ARTIFACTS_DIR}
+
+Lint:
+  stage: test
+  script:
+    - go get -u github.com/alecthomas/gometalinter
+    - gometalinter --install --update
+    - make lint
+
+Unit Test:
+  stage: test
+  script:
+    - make dep
+    - make test
+
+Race Detector:
+  stage: test
+  script:
+    - make race
