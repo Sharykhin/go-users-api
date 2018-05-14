@@ -2,11 +2,23 @@ language: go
 os: linux
 go:
   - 1.9.x
+cache:
+  directories:
+  - $CACHE_DIR
+env:
+  global:
+    - CACHE_DIR=$HOME/.cache/docker
+    - CACHE_LINTER=$CACHE_DIR/node.tar.gz
+services:
+  - docker
 before_install:
+  - if [ -f ${CACHE_LINTER} ]; then gunzip -c ${CACHE_LINTER} | docker load; fi
   - curl -L -s https://github.com/golang/dep/releases/download/v0.3.1/dep-linux-amd64 -o $GOPATH/bin/dep
   - chmod +x $GOPATH/bin/dep
   - go get -u gopkg.in/alecthomas/gometalinter.v2
 install:
+  - mkdir -p $CACHE_DIR
+  - if [ ! -f ${CACHE_LINTER} ]; then docker pull chapal/gometalinter | gzip > ${CACHE_LINTER}; fi
   - gometalinter.v2 --install
   - dep ensure
 before_script:
