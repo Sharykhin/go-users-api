@@ -13,6 +13,7 @@ func router() http.Handler {
 	return r
 }
 
+// ListenAnsServe starts listening http server on address that is provided through env variable
 func ListenAnsServe() error {
 	address := os.Getenv("HTTP_ADDRESS")
 	fmt.Printf("go-users-api is listening on %s", address)
