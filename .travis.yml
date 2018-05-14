@@ -8,7 +8,7 @@ cache:
 env:
   global:
     - CACHE_DIR=$HOME/.cache/docker
-    - CACHE_LINTER=$CACHE_DIR/node.tar.gz
+    - CACHE_LINTER=$CACHE_DIR/gometalinterdock.tar.gz
 services:
   - docker
 before_install:
