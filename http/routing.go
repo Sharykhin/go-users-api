@@ -15,6 +15,6 @@ func router() http.Handler {
 
 func ListenAnsServe() error {
 	address := os.Getenv("HTTP_ADDRESS")
-	fmt.Printf("Go Users Api Service starts listening on %s", address)
+	fmt.Printf("go-users-api is listening on %s", address)
 	return http.ListenAndServe(address, router())
 }
