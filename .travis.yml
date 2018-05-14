@@ -7,3 +7,4 @@ install:
   - gometalinter.v2 --install
 script:
   - make lint
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ $TRAVIS_BRANCH == "develop" ]; then make lint; fi
