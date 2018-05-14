@@ -1,5 +1,5 @@
-PROJECT_NAME := "test"
-PKG := "gitlab.com/ShaSharykhinrykhin/$(PROJECT_NAME)"
+PROJECT_NAME := "go-users-api"
+PKG := "github.com/Sharykhin/$(PROJECT_NAME)"
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
 GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
 
@@ -8,16 +8,15 @@ GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
 all: build
 
 lint: ## Lint the files
-#	@golint -set_exit_status ${PKG_LIST}
-	gometalinter --deadline=100s ${PKG_LIST}
+	gometalinter --deadline=100s --skip=vendor ./...
 
 test: ## Run unittests
 	@go test -short ${PKG_LIST}
 
-race: dep ## Run data race detector
+race: ## Run data race detector
 	@go test -race -short ${PKG_LIST}
 
-msan: dep ## Run memory sanitizer
+msan: ## Run memory sanitizer
 	@go test -msan -short ${PKG_LIST}
 
 coverage: ## Generate global code coverage report
@@ -28,10 +27,11 @@ coverhtml: ## Generate global code coverage report in HTML
 
 get: ## Get the dependencies
 	@go get -v -d ./...
+
 dep: ## Get the dependencies through dep
 	dep ensure
 
-build: dep ## Build the binary file
+build: ## Build the binary file
 	@go build -i -v $(PKG)
 
 clean: ## Remove previous build
