@@ -2,8 +2,21 @@ language: go
 os: linux
 go:
   - 1.9.x
-install:
+before_install:
+  - curl -L -s https://github.com/golang/dep/releases/download/v0.3.1/dep-linux-amd64 -o $GOPATH/bin/dep
+  - chmod +x $GOPATH/bin/dep
   - go get -u gopkg.in/alecthomas/gometalinter.v2
+install:
   - gometalinter.v2 --install
+  - dep ensure
+before_script:
+  - echo $TRAVIS
+  - echo $TRAVIS_PULL_REQUEST
+  - echo $TRAVIS_PULL_REQUEST_BRANCH
+  - echo $TRAVIS_COMMIT
+  - echo $TRAVIS_PULL_REQUEST_SHA
+  - echo $TRAVIS_REPO_SLUG
+  - echo $TRAVIS_SECURE_ENV_VARS
+  - echo $TRAVIS_BRANCH
 script:
   - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ $TRAVIS_BRANCH == "develop" ]; then bash .deployment/travis/lint; fi

@@ -28,6 +28,7 @@ before_script:
 Lint:
   stage: test
   script:
+    - make dep
     - go get -u github.com/alecthomas/gometalinter
     - gometalinter --install --update
     - make lint
@@ -41,4 +42,5 @@ Unit Test:
 Race Detector:
   stage: test
   script:
+    - make dep
     - make race
