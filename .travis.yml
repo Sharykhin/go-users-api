@@ -6,5 +6,4 @@ install:
   - go get -u gopkg.in/alecthomas/gometalinter.v2
   - gometalinter.v2 --install
 script:
-  - make lint
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ $TRAVIS_BRANCH == "develop" ]; then make lint; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ $TRAVIS_BRANCH == "develop" ]; then bash .deployment/travis/lint; fi
