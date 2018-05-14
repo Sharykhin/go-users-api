@@ -1,3 +1,5 @@
 #!/bin/bash
 
+echo "Run Lint:"
+echo "- gometalinter.v2 --deadline=100s --skip=vendor ./..."
 gometalinter.v2 --deadline=100s --skip=vendor ./...
