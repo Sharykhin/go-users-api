@@ -5,3 +5,4 @@ echo "Run Lint:"
 #gometalinter.v2 --deadline=100s --skip=vendor ./...
 echo 'docker run -tiv $PWD:/go/src/github.com/Sharykhin/go-users-api -w="/go/src/github.com/Sharykhin/go-users-api" -t chapal/gometalinter ./... --exclude=/usr/local/go/src --vendor'
 docker run -tiv $PWD:/go/src/github.com/Sharykhin/go-users-api -w="/go/src/github.com/Sharykhin/go-users-api" -t chapal/gometalinter ./... --exclude=/usr/local/go/src --vendor
+echo "Lint finished"
